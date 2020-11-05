@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/register.css">
+</head>
+
+<body>
+<div id="app">
+  <div class="register">
+    <h2 class="registerTitle">注册</h2>
+    <div class="errorMsg"></div>
+    <form method="post" action="./login.html" class="registerBox" id="registerBox">
+      <label for="username">
+        <span class="userName">用户名</span>
+        <input type="text" name="username" class="handle" id="username">
+      </label>
+      <label for="password">
+        <span class="pwd">密码</span>
+        <input type="password" name="password" class="handle" id="password">
+      </label>
+      <label for="surePwd">
+        <span class="sPwd">确认密码</span>
+        <input type="password" name="surePwd" class="handle" id="surePwd">
+      </label>
+      <!-- <button type="submit" class="btn">注册</button> -->
+    </form>
+    <input type="submit" value="注册" class="btn" id='submit'>
+    <div class="backLogin">
+      <a href="./login.html" class="back">返回登录</a>
+    </div>
+  </div>
+</div>
+<script src="./js/jquery-1.11.0.min.js"></script>
+<script src="./js/layer.js"></script>
+<script src="./js/register.js"></script>
+
+<script type="text/javascript">
+     $("#submit").click(function(){
+      let username = $('#username').val()
+      let password = $('#password').val()
+      let surePwd = $('#surePwd').val()
+      if(username === ''){
+        alert('请输入用户名！')
+        return;
+      }
+      if(password === ''){
+        alert('请输入密码！')
+        return;
+      }
+      if(surePwd === ''){
+        alert('请输入确认密码！')
+        return;
+      }
+      if(password !== surePwd){
+        alert("两次输入密码不一致，请重新输入！")
+        return;
+      }
+      $.ajax({
+        type: "post",
+        url: 'register',
+        data: JSON.stringify({ "username": username, "password": password,"surePwd": surePwd }),
+        dataType: "JSON",
+        async: false,
+        contentType: "application/json",
+        success: function (return_data) {
+          if (return_data.ok === 1) {
+            alert("注册成功！")
+            window.location.href='login.html'
+          }
+          else {
+            alert("注册失败！");
+          }
+        }
+      })
+    })
+  </script>
+</body>
+
+</html>

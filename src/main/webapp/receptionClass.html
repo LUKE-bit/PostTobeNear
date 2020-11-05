@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <link rel="stylesheet" href="css/receptionClass.css">
+    <link rel="stylesheet" href="css/overbooking.css">
+    <script src="js/receptionClass.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+    <script>
+        $('#myTab a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        })
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        })
+    </script>
+</head>
+
+<body>
+<!-- <button type="button" class="btn btn-success">（成功）Success</button> -->
+<div class="container">
+    <div class="row">
+        <div class="tabBar">
+            <a href="reception.html" class="userPage">
+                <svg t="1601956025993" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg" p-id="3287" data-spm-anchor-id="a313x.7781069.0.i0"
+                     width="18" height="18">
+                    <path
+                            d="M768 951.4L337.815 530.15c-10.237-10.031-10.237-26.278 0-36.303L768 72.59V0L263.678 493.848c-10.237 10.024-10.237 26.271 0 36.303L768 1024v-72.6z"
+                            fill="#ffffff" p-id="3288"></path>
+                </svg>
+            </a>
+            <span class="appName">代取快递</span>
+        </div>
+
+        <div id="tab">
+            <!-- Tab panes -->
+            <div class="tab-content" id="card">
+                <div class="hintBox">
+                    <span class="tip">点击可查看详情</span>
+                    <span id="hint">点击刷新</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="back">
+        <a href="./myTake.html">进入我的接单</a>
+    </div>
+</div>
+<!-- <script>
+$('.smallCard').on('click',function(){
+                    $('.container').append('<div id="hide"><div id="content"></div><div id="bttn"><p class="warn">确认接收后请在我的订单内查看完整订单</p><button id="close">关闭</button><button id="confirm">确认接收</button></div></div>');
+                    var temp = this;
+                    var text = $(temp).html();
+                    $('#content').html(text);
+
+                    $('#hide').css("display","block");
+
+                    $('#confirm').on('click',function(){
+                        $('#hide').css("display","none");
+                        $(temp).remove();
+                        $('#hide').remove();
+
+                    })
+                    $('#close').on('click', function(){
+                        $('#hide').css("display","none");
+                        $('#hide').remove();
+                    })
+                })
+</script> -->
+<!-- <script>
+var hint = document.getElementById("hint");
+var home = document.getElementById('home');
+hint.onclick = function(){
+    console.log("OK");
+    var xmlhttp;
+    if (window.XMLHttpRequest)
+    {   // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();
+    }
+    else
+    {   // code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.open("GET","",true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                var list = JSON.parse(xmlhttp.responseText);
+                for(let i=0; i<list.length; i++)
+                {
+                    if(list[i].type == '代取快递'){
+                        let div = document.createElement('div');
+                        div.className = 'smallCard';
+                        div.innerHTML = '<p><strong>地点：</strong>西区水房菜鸟驿站<span><strong>金钱：</strong>2元</span></p><p><strong>快递描述：</strong>小件，易碎物，和一些注意事项</p><p> <strong>时间：</strong>2020.10.12  下午五点以前</p>'
+                        home.appendChild(div);
+                    }
+                }
+            }
+    }
+}
+
+</script> -->
+</body>
+
+</html>

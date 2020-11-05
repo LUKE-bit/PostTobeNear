@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/overbooking.css">
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <style>
+    .overbooking {
+      position: absolute;
+      top: 270px;
+    }
+  </style>
+</head>
+
+<body>
+<div id="app">
+  <div class="tabBar">
+    <a href="./home.html" class="userPage">
+      <svg t="1601956025993" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+           p-id="3287" data-spm-anchor-id="a313x.7781069.0.i0" width="18" height="18">
+        <path
+                d="M768 951.4L337.815 530.15c-10.237-10.031-10.237-26.278 0-36.303L768 72.59V0L263.678 493.848c-10.237 10.024-10.237 26.271 0 36.303L768 1024v-72.6z"
+                fill="#ffffff" p-id="3288"></path>
+      </svg>
+    </a>
+    <span class="appName">我要下单</span>
+  </div>
+  <div class="order">
+    <form  action='/home.html' class="orderBox">
+      <label for="type">
+        <span class="name">类型</span>
+        <select id="type" class="handle">
+          <option value="代取快递">代取快递</option>
+          <option value="食堂带饭">食堂带饭</option>
+          <option value="外出代购">外出代购</option>
+          <option value="图书馆占座">图书馆占座</option>
+          <option value="其他">其他</option>
+        </select>
+      </label>
+      <label for="money">
+        <span class="name">金额</span>
+        <input type="number" value="1" name="" id="money" class="handle">
+      </label>
+      <label for="time">
+        <span class="name">时间</span>
+        <input type="datetime-local" name="" id="time" class="handle">
+      </label>
+      <label for="describe">
+        <span class="name">描述</span>
+        <textarea name="" placeholder="请输入描述" class="handle" id="describe" cols="30" rows="5"></textarea>
+      </label>
+      <div class="errorMsg"></div>
+    </form>
+    <button type="submit" class="overbooking" id='overbooking'>我要下单</button>
+  </div>
+</div>
+<script src="./js/overbooking.js"></script>
+<script>
+    $("#overbooking").click(function () {
+      var type = $("#type option:selected").text();
+      var money = $('#money').val();
+      var time = $('#time').val().replace('T', ' ');
+      var description = $('#describe').val();
+      console.log(type);
+      console.log(money);
+      console.log(time);
+      console.log(description);
+      if(time === ''){
+        alert('请选择时间！')
+        return
+      }
+      if(description === ''){
+        alert('请输入描述！')
+        return
+      }
+      var realTime = String(time)+':00';
+      $.ajax({
+        type: "post",
+        url: 'PostOrder',
+        async: false,
+        dataType: "JSON",
+        contentType: "application/json",
+        data: JSON.stringify({
+          "type": type, "money": money, "time": realTime,
+          "description": description
+        }),
+        success: function (data) {
+          if (data.ok === 0) {
+            alert('未登录，请先登录！')
+          } else if(data.ok===1){
+            alert('发单成功！')
+            window.location.href = 'home.html';
+          } else {
+            alert('发单失败！')
+          }
+        }
+      })
+    });
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <link rel="stylesheet" href="css/myTake.css">
+    <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+    <script>
+        $('#myTab a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        })
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        })
+    </script>
+    <style>
+      .smallCard button{
+        margin-left: 26%;
+        width: 130px;
+        height: 40px;
+        border-radius: 12px;
+        border: 1px solid transparent;
+        background-color: #18dcff;
+        font-weight: bold;
+      }
+    </style>
+</head>
+
+<body>
+    <!-- <button type="button" class="btn btn-success">（成功）Success</button> -->
+    <div class="container">
+        <div class="row">
+            <div class="tabBar">
+                <a href="home.html" class="userPage">
+                    <svg t="1601956025993" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="3287" data-spm-anchor-id="a313x.7781069.0.i0"
+                        width="18" height="18">
+                        <path
+                            d="M768 951.4L337.815 530.15c-10.237-10.031-10.237-26.278 0-36.303L768 72.59V0L263.678 493.848c-10.237 10.024-10.237 26.271 0 36.303L768 1024v-72.6z"
+                            fill="#ffffff" p-id="3288"></path>
+                    </svg>
+                </a>
+                <span class="appName">我的接单</span>
+            </div>
+
+            <div id="tab">
+                <!-- Tab panes -->
+                <div class="tab-content" id="card">
+                  <div class="hintBox">
+                    <span class="tip">点击可查看详情</span>
+                    <span id="hint">点击刷新</span>
+                </div>
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                      <div class="smallCard">
+                        <p> <strong>类型：</strong>代取快递</p>
+                        <p><strong>快递描述：</strong>西区水房菜鸟驿站, 小件，易碎物，和一些注意事项</p>
+                        <p><strong>金钱：</strong>2元</p>
+                        <p> <strong>时间：</strong>2020.10.12 下午五点以前</p>
+                    </div>
+                    <div class="smallCard">
+                        <p> <strong>类型：</strong>代取快递</p>
+                        <p><strong>快递描述：</strong>西区水房菜鸟驿站, 小件，易碎物，和一些注意事项</p>
+                        <p><strong>金钱：</strong>2元</p>
+                        <p> <strong>时间：</strong>2020.10.12 下午五点以前</p>
+                    </div>
+                    <div class="smallCard">
+                        <p> <strong>类型：</strong>代取快递</p>
+                        <p><strong>快递描述：</strong>西区水房菜鸟驿站, 小件，易碎物，和一些注意事项</p>
+                        <p><strong>金钱：</strong>2元</p>
+                        <p> <strong>时间：</strong>2020.10.12 下午五点以前</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+       $(document).ready(function(){
+        $.ajax({
+          type: "get",
+          url: 'SearchMyTakeOrder',
+          async: false,
+          dataType: "JSON",
+          contentType: "application/json",
+          success: function (data) {
+            $('#home').empty()
+            for(let i=0;i<data.orders.length;i++){
+              let content = ' <div class="smallCard"><p><strong>类型：</strong>'+ data.orders[i].type+ '</p> <p><strong>金钱：</strong>'+ data.orders[i].money+ '</p> <p> <strong>时间：</strong>'+ data.orders[i].time+ '</p><p><strong>快递描述：</strong>'+ data.orders[i].description+ '</p></div>'
+              $("#home").append(content);
+            }
+          }
+        })
+      })
+      $("#hint").click(function () {
+        $.ajax({
+          type: "get",
+          url: 'SearchMyTakeOrder',
+          async: false,
+          dataType: "JSON",
+          contentType: "application/json",
+          success: function (data) {
+            $('#home').empty()
+            for(let i=0;i<data.orders.length;i++){
+              let content = ' <div class="smallCard"><p><strong>类型：</strong>'+ data.orders[i].type+ '</p> <p><strong>金钱：</strong>'+ data.orders[i].money+ '</p> <p> <strong>时间：</strong>'+ data.orders[i].time+ '</p><p><strong>快递描述：</strong>'+ data.orders[i].description+ '</p></div>'
+              $("#home").append(content);
+            }
+          }
+        })
+      }) 
+    </script>
+</body>
+
+</html>
